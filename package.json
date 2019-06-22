@@ -1,0 +1,20 @@
+{
+  "name": "react-wheels-test-1",
+  "version": "1.0.0",
+  "description": "react wheels",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slTrust/react-gulu-test-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slTrust/react-gulu-test-1/issues"
+  },
+  "homepage": "https://github.com/slTrust/react-gulu-test-1#readme"
+}
