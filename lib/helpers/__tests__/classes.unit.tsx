@@ -14,7 +14,8 @@ describe('classes', () => {
   })
   it('接受各种奇怪值', ()=>{
     const result = classes(
-      'a', undefined, '中文', false , null
+    //   'a', undefined, '中文', false , null
+      'a', undefined, '中文'
     )
     expect(result).toEqual('a 中文')
   })
