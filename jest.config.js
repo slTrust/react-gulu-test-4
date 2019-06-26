@@ -3,7 +3,7 @@
 module.exports = {
   verbose: true,
   clearMocks: false,
-  reporters: ["default"],
+  reporters: ["default","jest-junit"],
 
   collectCoverage: true,
   // "lib/**/*.{ts,tsx}" lib里的文件都要测,除了__tests__里的，jest的默认规则是排除有__tests__目录的文件
