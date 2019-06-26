@@ -1,14 +1,19 @@
 #https://github.com/revolunet/create-react-app-circleci/blob/master/.circleci/config.yml
 defaults: &defaults
   docker:
+    # 我们使用 node8来测试
     - image: circleci/node:8
-
+# circleci的 version
 version: 2
 jobs:
+  # 准备阶段
   prepare:
     <<: *defaults
     steps:
+      # 迁出代码
       - checkout
+      # 根据当前的package.json 创建一个 md5 把它当作key 创建一个缓存，加速之后代码的运行，只要package.json里面没有变化
+      # 就可以使用上次的缓存，不用从头安装
       - restore_cache:
           keys:
             - v2-dependencies-{{ checksum "package.json" }}
