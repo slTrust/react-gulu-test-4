@@ -14,9 +14,10 @@ describe('classes', () => {
   })
   it('接受各种奇怪值', ()=>{
     const result = classes(
-    //   'a', undefined, '中文', false , null
-      'a', undefined, '中文'
+      'a', undefined, '中文', false , null
+      // 'a', undefined, '中文'
     )
+    console.log(result)
     expect(result).toEqual('a 中文')
   })
   it('接受 0 个参数', ()=>{
