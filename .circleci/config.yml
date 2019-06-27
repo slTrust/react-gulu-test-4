@@ -57,6 +57,7 @@ jobs:
       # 把 build产生的目录 放在当前目录
       - attach_workspace:
           at: .
+      - run: npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
       - run: npm publish
 
 workflows:

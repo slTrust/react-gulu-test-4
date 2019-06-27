@@ -1,6 +1,6 @@
 {
   "name": "fui_t888",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "react wheels",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index",
