@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import Dialog,{alert} from './dialog';
+import Dialog,{alert , confirm , model} from './dialog';
 
 export default function(){
     const[x,setX] = useState(false);
     const[y,setY] = useState(false);
+
+
+    const openModel = () => {
+        const close = model(<h1>你好！
+            <button onClick={()=>close()}>model的btn想关掉 dialog</button>
+        </h1>)
+    }
+
     return (
         <div>
             <div style={{position:'relative',zIndex:10,border:'1px solid red',color:'red'}}>
@@ -41,6 +49,16 @@ export default function(){
             <div>
                 <h1>example3</h1>
                 <button onClick={()=> alert('1')}>alert</button>
+                <button onClick={()=> confirm('1',()=>{
+                    console.log('你点击了yes');
+                },()=>{
+                    console.log('你点击了no');
+                })}>confirm</button>
+            </div> 
+            <div>
+                <h1>example4</h1>
+                <button onClick={openModel}>model</button>
+               
             </div> 
         </div>
     )
