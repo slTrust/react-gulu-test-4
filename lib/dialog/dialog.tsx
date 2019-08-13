@@ -5,17 +5,15 @@ import {Icon} from '../index';
 import {scopedClassMaker} from '../classes';
 
 interface Props {
-    visible:boolean;
-    buttons?:Array<ReactElement>;
-    onClose:React.MouseEventHandler;
-    closeOnClickMask?:boolean;
+    visible: boolean;
+    buttons?: Array<ReactElement>;
+    onClose: React.MouseEventHandler;
+    closeOnClickMask?: boolean;
+    enableMask?: boolean;
 }
 
 const scopedClass = scopedClassMaker('fui-dialog');
 const sc = scopedClass;
-
-
-
 
 const Dialog:React.FunctionComponent<Props> = (props) => {
     const onClickClose:React.MouseEventHandler = (e)=>{
@@ -26,7 +24,7 @@ const Dialog:React.FunctionComponent<Props> = (props) => {
             props.onClose(e);
         }
     }
-    const x = props.visible ?
+    const result = props.visible &&
     // 遮罩层的div 和 dialog分开，因为点击遮罩层要消失 
     // <Fragment>  是为了渲染时不多渲染一个 div 和通过编译 
     // 不能直接返回多个节点必须一个根节点，
@@ -54,15 +52,12 @@ const Dialog:React.FunctionComponent<Props> = (props) => {
            
         </div>
     </Fragment>
-    : 
-    null
-
     /*
     直接 {props.buttons} 会报错 因为 buttons 是数组
     需要一个key
     */
     return (
-        ReactDOM.createPortal(x,document.body)
+        ReactDOM.createPortal(result , document.body)
     );
 }
 // 设置默认 props
