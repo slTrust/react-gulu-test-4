@@ -10,12 +10,48 @@ export default function(){
         <div>
             <div>
                 <h1>第一个例子</h1>
-                <Layout className="hi">
+                <Layout className="hi" style={{height:'300px'}}>
                     <Header>header</Header>
                     <Content>content</Content>
                     <Footer>footer</Footer>
                 </Layout>
+            </div>  
+
+            <div>
+                <h1>第二个例子</h1>
+                <Layout className="hi" style={{height:'300px'}}>
+                    <Header>header</Header>
+                    <Layout>
+                        <Aside>aside</Aside>
+                        <Content>content</Content>
+                    </Layout>
+                    <Footer>footer</Footer>
+                </Layout>
             </div>            
+
+            <div>
+                <h1>第三个例子</h1>
+                <Layout className="hi" style={{height:'300px'}}>
+                    <Header>header</Header>
+                    <Layout>
+                        <Content>content</Content>
+                        <Aside>aside</Aside>
+                    </Layout>
+                    <Footer>footer</Footer>
+                </Layout>
+            </div>    
+
+            <div>
+                <h1>第四个例子</h1>
+                <Layout className="hi" style={{height:'300px'}}>
+                    <Aside>aside</Aside>
+                    <Layout>
+                        <Header>header</Header>
+                        <Content>content</Content>
+                        <Footer>footer</Footer>
+                    </Layout>
+                </Layout>
+            </div>  
         </div>
     )
 };
