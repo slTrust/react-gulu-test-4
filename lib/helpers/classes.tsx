@@ -20,6 +20,30 @@ interface ClassToggles {
 }
 
 function scopedClassMaker(prefix: string){
+
+    return function (name: string | ClassToggles , options?: Options){
+        const namesObject = (typeof name === 'string' || name === undefined) ?
+            {[name]:name} :
+            name;
+        const scoped = Object
+            .entries(namesObject)
+            .filter(kv => kv[1] !==false)
+            .map(kv => kv[0])
+            .map(name => [prefix, name]
+                .filter(Boolean)
+                .join('-')
+            ).join(' ');
+        if(options && options.extra){
+            return  [ scoped, options && options.extra].filter(Boolean).join(' ');
+        }else{
+            return scoped;
+        }
+    }
+}
+
+
+/*
+function scopedClassMaker(prefix: string){
     return function (name?: string | ClassToggles,options?: Options){
         let name2;
         let result;
@@ -42,6 +66,7 @@ function scopedClassMaker(prefix: string){
         }
     }
 }
+*/
 
 export {scopedClassMaker};
 
