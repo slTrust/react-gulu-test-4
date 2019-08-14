@@ -3,3 +3,45 @@ function classes(...names: (string | undefined)[]) {
 }
   
 export default classes;
+
+interface Options {
+    extra: string | undefined
+}
+
+/*
+{
+    hasAside:true,
+    clearfix:false,
+    mt20:true
+}
+*/
+interface ClassToggles {
+    [K: string]: boolean
+}
+
+function scopedClassMaker(prefix: string){
+    return function (name?: string | ClassToggles,options?: Options){
+        let name2;
+        let result;
+
+        if( typeof name === 'string' || name === undefined){
+            name2 = name;
+            result = [prefix,name2].filter(Boolean).join('-');
+        }else{
+            // ['hasAside','x']
+            name2 = Object.entries(name).filter(kv => kv[1]).map(kv => kv[0]);
+            result = name2.map( n =>{
+                return [prefix,n].filter(Boolean).join('-')
+            }).join(' ')
+            // ['fui-layout-hasAside', 'fui-layout-x']
+        }
+        if(options && options.extra){
+            return  [ result, options && options.extra].filter(Boolean).join(' ');
+        }else{
+            return result;
+        }
+    }
+}
+
+export {scopedClassMaker};
+
