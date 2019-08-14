@@ -19,6 +19,23 @@ interface ClassToggles {
     [K: string]: boolean
 }
 
+/*
+将函数式 进行到底！！！
+*/
+
+const scopedClassMaker = (prefix: string) =>
+     (name: string | ClassToggles , options?: Options) =>
+    Object
+    .entries(name instanceof Object ? name : {[name]:name})
+    .filter(kv => kv[1] !==false)
+    .map(kv => kv[0])
+    .map(name => [prefix, name]
+        .filter(Boolean)
+        .join('-'))
+    .concat( options && options.extra || [])
+    .join(' ');
+
+/*
 function scopedClassMaker(prefix: string){
 
     return function (name: string | ClassToggles , options?: Options){
@@ -40,6 +57,8 @@ function scopedClassMaker(prefix: string){
         }
     }
 }
+*/
+
 
 
 /*
