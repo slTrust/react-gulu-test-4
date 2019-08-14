@@ -33,7 +33,7 @@ const Dialog:React.FunctionComponent<Props> = (props) => {
     // 关闭按钮不要在 header里 因为这样就必须有 header
     <Fragment>
         <div className={sc('mask')} onClick={onClickMask}></div>
-        <div className={sc()}>
+        <div className={sc('')}>
             <div className={sc('close')} onClick={onClickClose}>
                 <Icon name="close"/>
             </div>
