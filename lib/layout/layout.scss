@@ -3,6 +3,13 @@
     border:1px solid red;
     display: flex;
     flex-direction: column;
+    /* 如果Layout 含有Aside 则它为row 同时它里面的 Layout 还是 column*/
+    &.hasAside{
+        flex-direction: row;
+        .fui-layout{
+            flex-direction: column;
+        }
+    }
     &-content{
         flex-grow:1;
         border:1px solid green;
