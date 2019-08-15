@@ -8,18 +8,19 @@ import DialogExample from './lib/dialog/dialog.example';
 import LayoutExample from './lib/layout/layout.example';
 import {Layout , Aside , Header , Content , Footer } from "./lib/layout/layout";
 import './example.scss';
-
+const logo = require('./logo.png');
 
     ReactDOM.render(
     <Router>
-        <Layout style={{border:'1px solid red'}} className="page">
-            <Header style={{border:'1px solid green'}}>
+        <Layout className="site-page">
+            <Header className="site-header">
                 <div className="logo">
-                    FUI
+                    <img src={logo} alt="" style={{background:'#eee'}} height="48" width="48"/>
+                    <span>FUI</span>
                 </div>
             </Header>
             <Layout>
-                <Aside style={{ border:'1px solid blue' }}>
+                <Aside className="site-aside">
                     <h2>组件</h2>
                     <ul>
                         <li>
@@ -36,16 +37,17 @@ import './example.scss';
                         </li>
                     </ul>
                 </Aside>
-                <Content>
-                    <Route path="/icon" component={IconExample}/>
-                    <Route path="/button" component={ButtonExample}/>
-                    <Route path="/dialog" component={DialogExample}/>
-                    <Route path="/layout" component={LayoutExample}/>
-                </Content>
+               <Content className="site-main">
+                   <Route path="/icon" component={IconExample}/>
+                   <Route path="/button" component={ButtonExample}/>
+                   <Route path="/dialog" component={DialogExample}/>
+                   <Route path="/layout" component={LayoutExample}/>
+               </Content>
             </Layout>
-            <Footer style={{border:'12px solid black'}}>
+            <Footer className="site-footer">
                 footer
             </Footer>
+
         </Layout>
     </Router>
 ,document.querySelector('#root'));
