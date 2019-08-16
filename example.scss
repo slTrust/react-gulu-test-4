@@ -34,14 +34,22 @@ $border-color:#eeeeee;
     font-size: 18px;
   }
   ul{
-    padding:0 $padding;
     min-width: 12em;
-
     > li {
-      padding:8px 0;
       a{
-        color:$main-color;
+        color:#333;
+        display: block;
+        padding:8px $padding;
+        &:hover{
+          color:$main-color;
+        }
+        &.active{
+          color:white;
+          background:desaturate($main-color,50%);
+        }
+
       }
+
     }
   }
 }
