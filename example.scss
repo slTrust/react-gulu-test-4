@@ -4,7 +4,9 @@
 h1,h2,h3,h4,h5,h6{ font-weight: normal;}
 ul,li{list-style: none;}
 a{text-decoration: none;color:inherit;}
-
+pre{
+  font-family: "Fira Code Medium",Consolas,monospace;
+}
 $padding:16px;
 $main-color:#00adb5;
 $border-color:#eeeeee;
@@ -64,4 +66,8 @@ body{
 }
 .site-main{
   padding-top:16px
+}
+
+.example{
+  padidng:16px 0;
 }
