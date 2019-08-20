@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter as Router, Route, NavLink} from 'react-router-dom';
 
+import './example.scss';
+
 import IconDemo from './lib/icon/icon.demo';
 import ButtonExample from './lib/button/button.example';
 import DialogExample from './lib/dialog/dialog.example';
 import LayoutExample from './lib/layout/layout.example';
 import {Layout , Aside , Header , Content , Footer } from "./lib/layout/layout";
-import './example.scss';
+import FormExample from "./lib/form/form.example";
+
 
 const x = require('!!raw-loader!./lib/icon/icon.example.tsx');
 console.log(x.default)
@@ -41,6 +44,9 @@ const logo = require('./logo.png');
                         <li>
                             <NavLink to="/layout">Layout</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/form">Form</NavLink>
+                        </li>
                     </ul>
                 </Aside>
                <Content className="site-main">
@@ -48,6 +54,7 @@ const logo = require('./logo.png');
                    <Route path="/button" component={ButtonExample}/>
                    <Route path="/dialog" component={DialogExample}/>
                    <Route path="/layout" component={LayoutExample}/>
+                   <Route path="/form" component={FormExample}/>
                </Content>
             </Layout>
             <Footer className="site-footer">
