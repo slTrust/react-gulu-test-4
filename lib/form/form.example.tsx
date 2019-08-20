@@ -1,35 +1,40 @@
 import * as React from "react";
-import Form from "./form";
-import {useState, Fragment, useRef} from "react";
+import Form, {FormValue} from "./form";
+import {useState, Fragment} from "react";
 
 
-/*
 const FormExample:React.FunctionComponent = ()=>{
-    const [formData] = useState({
-        username:'',
-        password:''
+    const [formData,setFormData] = useState<FormValue>({
+        username:'aaa',
+        password:'111'
     })
     const [fields] = useState([
         {name:'username',label:'用户名',input:{type:'text'}},
         {name:'password',label:'密码',input:{type:'password'}},
     ])
 
-    const [name,setName] = useState('hjx')
+    const onSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
+        console.log(formData)
+    }
+
     return (
         <div>
-            <Form value={formData} fields={fields}
+            <Form
+                value={formData} fields={fields}
                 buttons={
                     <Fragment>
                         <button>提交</button>
                         <button>返回</button>
                     </Fragment>
                 }
+                onChange={(newValue) => setFormData(newValue)}
+                onSubmit={onSubmit}
             />
         </div>
     )
 }
-*/
 
+/*
 // 受控组件和非受控组件
 const FormExample:React.FunctionComponent = ()=>{
     const [name,setName] = useState('hjx')
@@ -48,5 +53,6 @@ const FormExample:React.FunctionComponent = ()=>{
         </div>
     )
 }
+*/
 
 export default FormExample;
