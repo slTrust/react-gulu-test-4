@@ -1,6 +1,8 @@
 import * as React from "react";
 import {ReactFragment} from "react";
 import Input from "../input/input";
+import classes from "../helpers/classes";
+import './form.scss';
 
 // FormValue 就是把整个 value传递回去 有性能问题 但是你有10000条数据的表单吗？ 最多提交20条
 export interface FormValue{
@@ -29,23 +31,31 @@ const Form:React.FunctionComponent<Props> = (props)=>{
     }
     // key 是为了消除警告
     return (
-        <form onSubmit={onSubmit}>
-            {props.fields.map( f =>
-                <div key={f.name}>
-                    {f.label}
-                    <Input type={f.input.type} value={formData[f.name]}
-                        onChange={(e) => onInputChange(f.name, e.target.value)}
-                        //还可以用bind onChange={onInputChange.bind(null,f.name)}
-                    />
-                    <div>
-                        {props.errors[f.name]}
-                    </div>
-
-                </div>
-            )}
-            <div>
-                {props.buttons}
-            </div>
+        <form className="fui-form" onSubmit={onSubmit}>
+            <table>
+                {props.fields.map( f =>
+                    <tr className={classes('fui-form-tr')} key={f.name}>
+                        <td className={classes('fui-form-td')}>
+                            <span>{f.label}</span>
+                        </td>
+                        <td className={classes('fui-form-td')}>
+                            <Input type={f.input.type} value={formData[f.name]}
+                                   onChange={(e) => onInputChange(f.name, e.target.value)}
+                                //还可以用bind onChange={onInputChange.bind(null,f.name)}
+                            />
+                            <div>
+                                {props.errors[f.name]}
+                            </div>
+                        </td>
+                    </tr>
+                )}
+                <tr className="fui-form-tr">
+                    <td className="fui-form-td"></td>
+                    <td className="fui-form-td">
+                        {props.buttons}
+                    </td>
+                </tr>
+            </table>
         </form>
     )
 }
