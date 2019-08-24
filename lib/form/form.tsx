@@ -1,5 +1,6 @@
 import * as React from "react";
 import {ReactFragment} from "react";
+import Input from "../input/input";
 
 // FormValue 就是把整个 value传递回去 有性能问题 但是你有10000条数据的表单吗？ 最多提交20条
 export interface FormValue{
@@ -32,7 +33,7 @@ const Form:React.FunctionComponent<Props> = (props)=>{
             {props.fields.map( f =>
                 <div key={f.name}>
                     {f.label}
-                    <input type={f.input.type} value={formData[f.name]}
+                    <Input type={f.input.type} value={formData[f.name]}
                         onChange={(e) => onInputChange(f.name, e.target.value)}
                         //还可以用bind onChange={onInputChange.bind(null,f.name)}
                     />
