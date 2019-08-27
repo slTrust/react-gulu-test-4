@@ -34,34 +34,37 @@ const Form:React.FunctionComponent<Props> = (props)=>{
     return (
         <form className="fui-form" onSubmit={onSubmit}>
             <table className="fui-form-table">
-                {props.fields.map( f =>
-                    <tr className={classes('fui-form-tr')} key={f.name}>
-                        <td className={classes('fui-form-td')}>
-                            <span className="fui-form-label">{f.label}</span>
-                        </td>
-                        <td className={classes('fui-form-td')}>
-                            <Input type={f.input.type}
-                                   value={formData[f.name]}
-                                   onChange={(e) => onInputChange(f.name, e.target.value)}
-                                //还可以用bind onChange={onInputChange.bind(null,f.name)}
-                            />
-                            <div className="fui-form-error">
-                                {props.errors[f.name] ?
-                                    (props.errorsDisplayMode ==='first' ?
-                                        props.errors[f.name][0]:
-                                        props.errors[f.name].join(', ')):
-                                    <span>&nbsp;</span>
-                                }
-                            </div>
+                <tbody>
+                    {props.fields.map( f =>
+                        <tr className={classes('fui-form-tr')} key={f.name}>
+                            <td className={classes('fui-form-td')}>
+                                <span className="fui-form-label">{f.label}</span>
+                            </td>
+                            <td className={classes('fui-form-td')}>
+                                <Input type={f.input.type}
+                                       value={formData[f.name]}
+                                       onChange={(e) => onInputChange(f.name, e.target.value)}
+                                    //还可以用bind onChange={onInputChange.bind(null,f.name)}
+                                />
+                                <div className="fui-form-error">
+                                    {props.errors[f.name] ?
+                                        (props.errorsDisplayMode ==='first' ?
+                                            props.errors[f.name][0]:
+                                            props.errors[f.name].join(', ')):
+                                        <span>&nbsp;</span>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    )}
+                    <tr className="fui-form-tr">
+                        <td className="fui-form-td"></td>
+                        <td className="fui-form-td">
+                            {props.buttons}
                         </td>
                     </tr>
-                )}
-                <tr className="fui-form-tr">
-                    <td className="fui-form-td"></td>
-                    <td className="fui-form-td">
-                        {props.buttons}
-                    </td>
-                </tr>
+                </tbody>
+
             </table>
         </form>
     )

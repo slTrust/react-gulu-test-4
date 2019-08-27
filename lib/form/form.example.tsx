@@ -4,6 +4,16 @@ import {useState, Fragment} from "react";
 import Validator, {noError} from "./validator";
 import Button from "../button/button";
 
+const usernames = ['frank','jack','tom'];
+const checkUserName = (username: string,success:()=>void,fail:()=>void) =>{
+    setTimeout(()=>{
+        if(usernames.indexOf(username)>0){
+            success()
+        }else{
+            fail();
+        }
+    },3000);
+}
 
 const FormExample:React.FunctionComponent = ()=>{
     const [formData,setFormData] = useState<FormValue>({
@@ -21,20 +31,37 @@ const FormExample:React.FunctionComponent = ()=>{
         const rules = [
             {key: 'username',required: true },
             {key: 'username',minLength: 3 , maxLength:16 },
+            {key: 'username',validator: {
+                    name:'unique',
+                    validate(username:string){
+                        console.log('有人调用 validate')
+                        return new Promise<void>((resolve,reject) => {
+                            console.log('开始检查了')
+                            checkUserName(username, resolve, reject);
+                        })
+                    }
+
+                }
+            },
             {key: 'username',pattern: /^[A-Za-z0-9]+$/},
         ]
-        const errors = Validator(formData,rules);
-        console.log(errors)
-        setErrors(errors);
-        if(noError(errors)){
-            // todo success
-        }else{
+        Validator(formData,rules,(errors)=>{
+            console.log(1);
+            console.log(errors)
+            setErrors(errors);
+            if(noError(errors)){
+                // todo success
+            }else{
 
-        }
+            }
+        });
+
+
     }
 
     return (
         <div>
+            {JSON.stringify(errors)}
             <Form
                 value={formData} fields={fields}
                 buttons={
@@ -43,6 +70,7 @@ const FormExample:React.FunctionComponent = ()=>{
                         <Button>返回</Button>
                     </Fragment>
                 }
+                errorsDisplayMode="all"
                 errors={errors}
                 onChange={(newValue) => setFormData(newValue)}
                 onSubmit={onSubmit}
