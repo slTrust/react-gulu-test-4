@@ -15,7 +15,8 @@ interface Props {
     buttons: ReactFragment;
     onSubmit: React.FormEventHandler<HTMLFormElement>;
     onChange: (value: FormValue)=> void;
-    errors: {[K:string]:string[]}
+    errors: {[K:string]:string[]};
+    errorsDisplayMode?: 'first' | 'all';
 }
 
 const Form:React.FunctionComponent<Props> = (props)=>{
@@ -32,19 +33,25 @@ const Form:React.FunctionComponent<Props> = (props)=>{
     // key 是为了消除警告
     return (
         <form className="fui-form" onSubmit={onSubmit}>
-            <table>
+            <table className="fui-form-table">
                 {props.fields.map( f =>
                     <tr className={classes('fui-form-tr')} key={f.name}>
                         <td className={classes('fui-form-td')}>
-                            <span>{f.label}</span>
+                            <span className="fui-form-label">{f.label}</span>
                         </td>
                         <td className={classes('fui-form-td')}>
-                            <Input type={f.input.type} value={formData[f.name]}
+                            <Input type={f.input.type}
+                                   value={formData[f.name]}
                                    onChange={(e) => onInputChange(f.name, e.target.value)}
                                 //还可以用bind onChange={onInputChange.bind(null,f.name)}
                             />
-                            <div>
-                                {props.errors[f.name]}
+                            <div className="fui-form-error">
+                                {props.errors[f.name] ?
+                                    (props.errorsDisplayMode ==='first' ?
+                                        props.errors[f.name][0]:
+                                        props.errors[f.name].join(', ')):
+                                    <span>&nbsp;</span>
+                                }
                             </div>
                         </td>
                     </tr>
@@ -58,6 +65,10 @@ const Form:React.FunctionComponent<Props> = (props)=>{
             </table>
         </form>
     )
+}
+
+Form.defaultProps = {
+    errorsDisplayMode:'first'
 }
 
 export default Form;
