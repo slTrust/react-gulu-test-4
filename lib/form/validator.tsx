@@ -1,3 +1,10 @@
+/*
+#### Todo
+
+- 支持子字段编辑(子表单)
+- 支持更多的 type 如 图片上传 / 自定义 type
+- 支持手机端
+*/
 import {FormValue} from "./form";
 
 interface FormRule {
@@ -42,40 +49,49 @@ const Validator = (formValue: FormValue, rules: FormRules,callback:(errors: any)
         if(rule.validator){
             // 自定义校验器
             const promise = rule.validator.validate(value);
-            addError(rule.key,{message:'用户名已存在',promise});
+            addError(rule.key,{message: rule.validator.name,promise});
         }
         if (rule.required && isEmpty(value)) {
-            addError(rule.key, {message:'必填'});
+            addError(rule.key, {message:'required'});
         }
         if (rule.minLength && !isEmpty(value) && value.length < rule.minLength) {
-            addError(rule.key, {message:'太短'});
+            addError(rule.key, {message:'minLength'});
         }
         if (rule.maxLength && !isEmpty(value) && value.length > rule.maxLength) {
-            addError(rule.key, {message:'太长'});
+            addError(rule.key, {message:'maxLength'});
         }
         if( rule.pattern ){
             if(!(rule.pattern.test(value))){
-                addError(rule.key,{message:'格式不正确'})
+                addError(rule.key,{message:'pattern'})
             }
         }
     })
-    const promistList = flat(Object.values(errors)).filter(item =>item.promise).map(item => item.promise);
-    Promise.all(promistList)
-        .then(()=>{
-            const newErrors = fromEntries(
-                Object.keys(errors)
-                    .map<[string,string[]]>(key =>
-                        [key, errors[key].map((item:OneError) => item.message)]
-                    ));
-            callback(newErrors)
-        },()=>{
-            const newErrors = fromEntries(
-                Object.keys(errors)
-                    .map<[string,string[]]>(key =>
-                        [key, errors[key].map((item:OneError) => item.message)]
-            ));
-            callback(newErrors)
-        })
+    /*
+    const promistList = ;
+
+    const x = ()=>{
+        const newErrors = fromEntries(
+            Object.keys(errors)
+                .map<[string,string[]]>(key =>
+                    [key, errors[key].map((item:OneError) => item.message)]
+                ));
+        callback(newErrors)
+    }
+    Promise.all(promistList).then(x,x);
+     */
+
+    Promise.all(
+        flat(Object.values(errors))
+            .filter(item =>item.promise)
+            .map(item => item.promise)
+    ).finally(()=>{
+        callback(fromEntries(
+            Object.keys(errors)
+                .map<[string,string[]]>(key =>
+                    [key, errors[key].map((item:OneError) => item.message)]
+                ))
+        )
+    });
 }
 
 export default Validator;

@@ -12,7 +12,7 @@ const checkUserName = (username: string,success:()=>void,fail:()=>void) =>{
         }else{
             fail();
         }
-    },3000);
+    },1400);
 }
 
 const FormExample:React.FunctionComponent = ()=>{
@@ -34,9 +34,7 @@ const FormExample:React.FunctionComponent = ()=>{
             {key: 'username',validator: {
                     name:'unique',
                     validate(username:string){
-                        console.log('有人调用 validate')
                         return new Promise<void>((resolve,reject) => {
-                            console.log('开始检查了')
                             checkUserName(username, resolve, reject);
                         })
                     }
@@ -46,8 +44,6 @@ const FormExample:React.FunctionComponent = ()=>{
             {key: 'username',pattern: /^[A-Za-z0-9]+$/},
         ]
         Validator(formData,rules,(errors)=>{
-            console.log(1);
-            console.log(errors)
             setErrors(errors);
             if(noError(errors)){
                 // todo success
@@ -59,6 +55,13 @@ const FormExample:React.FunctionComponent = ()=>{
 
     }
 
+    const transformError = (message:string)=>{
+        const map:any = {
+            unique:'用户名已存在',
+
+        }
+        return map[message];
+    }
     return (
         <div>
             {JSON.stringify(errors)}
@@ -72,6 +75,7 @@ const FormExample:React.FunctionComponent = ()=>{
                 }
                 errorsDisplayMode="all"
                 errors={errors}
+                transformError={transformError}
                 onChange={(newValue) => setFormData(newValue)}
                 onSubmit={onSubmit}
             />

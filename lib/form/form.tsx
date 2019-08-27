@@ -17,6 +17,7 @@ interface Props {
     onChange: (value: FormValue)=> void;
     errors: {[K:string]:string[]};
     errorsDisplayMode?: 'first' | 'all';
+    transformError?: (message:string) => string;
 }
 
 const Form:React.FunctionComponent<Props> = (props)=>{
@@ -30,7 +31,16 @@ const Form:React.FunctionComponent<Props> = (props)=>{
         props.onChange(newFormValue)
         console.log(name,value)
     }
-    // key 是为了消除警告
+
+    const transformError = (message: string)=>{
+        const map:any = {
+        required:'必填',
+        minLength:'太短',
+        maxLength:'太长',
+    };
+    return props.transformError && props.transformError(message) || map[message] || '未知错误'
+}
+
     return (
         <form className="fui-form" onSubmit={onSubmit}>
             <table className="fui-form-table">
@@ -49,8 +59,8 @@ const Form:React.FunctionComponent<Props> = (props)=>{
                                 <div className="fui-form-error">
                                     {props.errors[f.name] ?
                                         (props.errorsDisplayMode ==='first' ?
-                                            props.errors[f.name][0]:
-                                            props.errors[f.name].join(', ')):
+                                            transformError!(props.errors[f.name][0]):
+                                            props.errors[f.name].map(transformError!).join(', ')):
                                         <span>&nbsp;</span>
                                     }
                                 </div>
