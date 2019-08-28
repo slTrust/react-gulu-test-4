@@ -12,8 +12,8 @@ import {Layout , Aside , Header , Content , Footer } from "./lib/layout/layout";
 import FormExample from "./lib/form/form.example";
 
 
-const x = require('!!raw-loader!./lib/icon/icon.example.tsx');
-console.log(x.default)
+// const x = require('!!raw-loader!./lib/icon/icon.example.tsx');
+// console.log(x.default)
 
 const logo = require('./logo.png');
 

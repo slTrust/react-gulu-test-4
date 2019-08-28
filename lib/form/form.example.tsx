@@ -8,16 +8,18 @@ const usernames = ['frank','jack','tom'];
 const checkUserName = (username: string,success:()=>void,fail:()=>void) =>{
     setTimeout(()=>{
         if(usernames.indexOf(username)>0){
-            success()
-        }else{
+            console.log('exist check Fail');
             fail();
+        }else{
+            console.log('no exist check Success');
+            success()
         }
     },1400);
 }
 
 const FormExample:React.FunctionComponent = ()=>{
     const [formData,setFormData] = useState<FormValue>({
-        username:'aaa',
+        username:'tom',
         password:'111'
     })
     const [fields] = useState([
@@ -26,24 +28,24 @@ const FormExample:React.FunctionComponent = ()=>{
     ])
 
     const [errors,setErrors] = useState({});
-
+    const validator = (username: string) => {
+        return new Promise<string>((resolve, reject) => {
+            checkUserName(username, resolve, () => reject('unique'));
+        });
+    };
     const onSubmit = (e:React.FormEvent<HTMLFormElement>)=>{
         const rules = [
             {key: 'username',required: true },
             {key: 'username',minLength: 3 , maxLength:16 },
-            {key: 'username',validator: {
-                    name:'unique',
-                    validate(username:string){
-                        return new Promise<void>((resolve,reject) => {
-                            checkUserName(username, resolve, reject);
-                        })
-                    }
-
-                }
-            },
+            {key: 'username', validator},
+            {key: 'username', validator},
             {key: 'username',pattern: /^[A-Za-z0-9]+$/},
+            {key: 'password', required: true},
+            {key: 'password', validator},
+            {key: 'password', validator},
         ]
         Validator(formData,rules,(errors)=>{
+            console.log(errors);
             setErrors(errors);
             if(noError(errors)){
                 // todo success
