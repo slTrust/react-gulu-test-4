@@ -10,14 +10,9 @@ import DialogExample from './lib/dialog/dialog.example';
 import LayoutExample from './lib/layout/layout.example';
 import {Layout , Aside , Header , Content , Footer } from "./lib/layout/layout";
 import FormExample from "./lib/form/form.example";
-
-
-// const x = require('!!raw-loader!./lib/icon/icon.example.tsx');
-// console.log(x.default)
+import ScrollExample from "./lib/scroll/scroll.example";
 
 const logo = require('./logo.png');
-
-
 
     ReactDOM.render(
     <Router>
@@ -47,6 +42,9 @@ const logo = require('./logo.png');
                         <li>
                             <NavLink to="/form">Form</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/scroll">Scroll</NavLink>
+                        </li>
                     </ul>
                 </Aside>
                <Content className="site-main">
@@ -55,6 +53,7 @@ const logo = require('./logo.png');
                    <Route path="/dialog" component={DialogExample}/>
                    <Route path="/layout" component={LayoutExample}/>
                    <Route path="/form" component={FormExample}/>
+                   <Route path="/scroll" component={ScrollExample}/>
                </Content>
             </Layout>
             <Footer className="site-footer">
